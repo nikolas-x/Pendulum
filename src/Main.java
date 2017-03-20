@@ -11,7 +11,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        Pendulum p = new Pendulum(1, 1, 3.14);
+        Pendulum p = new Pendulum(1, 5, 1.5);
         PendulumSimulation simulation = new PendulumSimulation("Pendulum", p);
         simulation.run();
     }

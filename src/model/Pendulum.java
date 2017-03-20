@@ -41,7 +41,7 @@ public class Pendulum extends JPanel
 
         // Draw pivot base
         g2D.setColor(Color.GRAY);
-        g2D.fillRect(pivotX - 150, pivotY - 20, 300, 40);
+        g2D.fillRect(pivotX - 50, pivotY - 20, 100, 40);
 
         // Draw rope
         g2D.setColor(Color.BLACK);
@@ -66,12 +66,12 @@ public class Pendulum extends JPanel
     @Override
     public Dimension getPreferredSize()
     {
-        return new Dimension(900, 900);
+        return new Dimension(1000, 1000);
     }
 
     public double getScaledLength()
     {
-        return length * 400;
+        return length * 100;
     }
 
     public double getScaledMass()

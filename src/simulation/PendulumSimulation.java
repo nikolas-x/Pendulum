@@ -10,7 +10,8 @@ import javax.swing.*;
  */
 public class PendulumSimulation extends JFrame implements Runnable
 {
-    private double gravity = 9.81;
+    // Physical variables
+    private double gravity = -9.81;
     private double damping = 1.0;
     private Pendulum pendulum;
 
@@ -24,9 +25,21 @@ public class PendulumSimulation extends JFrame implements Runnable
         this.setVisible(true);
     }
 
+    // Basic pendulum as described by RosettaCode
+    // https://rosettacode.org/wiki/Animate_a_pendulum#Java
     @Override
     public void run()
     {
-        return;
+        double angleAcceleration = 0;
+        double angleVelocity = 0;
+        double deltaT = 0.01;
+        while (true)
+        {
+            angleAcceleration = gravity / pendulum.getLength() * Math.sin(pendulum.getAngle());
+            angleVelocity += angleAcceleration * deltaT;
+            pendulum.setAngle(pendulum.getAngle() + angleVelocity * deltaT);
+            repaint();
+            try { Thread.sleep(15); } catch (InterruptedException ex) {}
+        }
     }
 }
