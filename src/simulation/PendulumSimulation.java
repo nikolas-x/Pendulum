@@ -21,11 +21,12 @@ public class PendulumSimulation extends JFrame implements Runnable
         this.add(pendulum);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
+        this.setVisible(true);
     }
 
     @Override
     public void run()
     {
-        this.setVisible(true);
+        return;
     }
 }

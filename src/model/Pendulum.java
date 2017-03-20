@@ -8,9 +8,9 @@ import java.awt.*;
  */
 public class Pendulum extends JPanel
 {
-    private double mass;
-    private double length;
-    private double angle;
+    private double mass; // kg
+    private double length; // m
+    private double angle; // rad
 
     public Pendulum()
     {
@@ -24,12 +24,59 @@ public class Pendulum extends JPanel
         this.mass = mass;
         this.length = length;
         this.angle = angle;
+        setDoubleBuffered(true);
     }
 
     @Override
     public void paint(Graphics g)
     {
-        g.drawLine(0, 0, 10, 10);
+        int pivotX = getWidth() / 2;
+        int pivotY = getHeight() / 2;
+        int weightX = pivotX + (int) (Math.sin(angle) * getScaledLength());
+        int weightY = pivotY + (int) (Math.cos(angle) * getScaledLength());
+
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Draw pivot base
+        g2D.setColor(Color.GRAY);
+        g2D.fillRect(pivotX - 150, pivotY - 20, 300, 40);
+
+        // Draw rope
+        g2D.setColor(Color.BLACK);
+        g2D.setStroke(new BasicStroke(5));
+        g2D.drawLine(pivotX,
+                pivotY,
+                weightX,
+                weightY);
+        g2D.setStroke(new BasicStroke());
+
+        // Draw pivot
+        g2D.fillOval(pivotX - 10, pivotY - 10, 20, 20);
+
+        // Draw
+        g2D.setColor(Color.GREEN);
+        g2D.fillOval((int)(weightX - getScaledMass()),
+                (int)(weightY - getScaledMass()),
+                (int)(getScaledMass() * 2),
+                (int)(getScaledMass() * 2));
+    }
+
+    @Override
+    public Dimension getPreferredSize()
+    {
+        return new Dimension(900, 900);
+    }
+
+    public double getScaledLength()
+    {
+        return length * 400;
+    }
+
+    public double getScaledMass()
+    {
+        return mass * 25;
     }
 
     public double getMass()
