@@ -1,9 +1,12 @@
 package model;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Created by nxex3708 on 3/20/2017.
  */
-public class Pendulum
+public class Pendulum extends JPanel
 {
     private double mass;
     private double length;
@@ -21,6 +24,12 @@ public class Pendulum
         this.mass = mass;
         this.length = length;
         this.angle = angle;
+    }
+
+    @Override
+    public void paint(Graphics g)
+    {
+        g.drawLine(0, 0, 10, 10);
     }
 
     public double getMass()
