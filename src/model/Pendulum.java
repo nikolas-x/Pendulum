@@ -9,6 +9,11 @@ public class Pendulum
     private double length;
     private double angle;
 
+    public Pendulum()
+    {
+        this(1,1,0);
+    }
+
     public Pendulum(double mass,
                     double length,
                     double angle)
