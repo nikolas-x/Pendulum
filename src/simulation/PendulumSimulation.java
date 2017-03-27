@@ -12,10 +12,14 @@ import javax.swing.*;
  */
 public class PendulumSimulation extends JFrame implements Runnable
 {
+    // Defaults
+    public static final double DEFAULT_GRAVITY = -9.81;
+    public static final double DEFAULT_TIMESTEP = 0.01;
+
     // Physical variables
-    private double gravity = -9.81;
+    private double gravity = DEFAULT_GRAVITY;
     private double damping = 0;
-    private double timestep = 0.01;
+    private double timestep = DEFAULT_TIMESTEP;
     private double angleAcceleration = 0;
     private double angleVelocity = 0;
     private Pendulum pendulum;
@@ -74,5 +78,47 @@ public class PendulumSimulation extends JFrame implements Runnable
         double angle = Math.atan2(target.y - (getHeight() / 2),
                                     target.x - (getHeight() / 2));
         return angle;
+    }
+
+    // Getters and Setters
+
+    public double getGravity()
+    {
+        return gravity;
+    }
+
+    public void setGravity(double gravity)
+    {
+        this.gravity = gravity;
+    }
+
+    public double getDamping()
+    {
+        return damping;
+    }
+
+    public void setDamping(double damping)
+    {
+        this.damping = damping;
+    }
+
+    public double getTimestep()
+    {
+        return timestep;
+    }
+
+    public void setTimestep(double timestep)
+    {
+        this.timestep = timestep;
+    }
+
+    public Pendulum getPendulum()
+    {
+        return pendulum;
+    }
+
+    public void setPendulum(Pendulum pendulum)
+    {
+        this.pendulum = pendulum;
     }
 }
