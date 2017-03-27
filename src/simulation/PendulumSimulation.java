@@ -12,7 +12,8 @@ public class PendulumSimulation extends JFrame implements Runnable
 {
     // Physical variables
     private double gravity = -9.81;
-    private double damping = 1.0;
+    private double damping = 5;
+    private double timestep = 0.05;
     private Pendulum pendulum;
 
     public PendulumSimulation(String name, Pendulum pendulum)
@@ -32,12 +33,17 @@ public class PendulumSimulation extends JFrame implements Runnable
     {
         double angleAcceleration = 0;
         double angleVelocity = 0;
-        double deltaT = 0.01;
+        double mass, length, angle;
         while (true)
         {
-            angleAcceleration = gravity / pendulum.getLength() * Math.sin(pendulum.getAngle());
-            angleVelocity += angleAcceleration * deltaT;
-            pendulum.setAngle(pendulum.getAngle() + angleVelocity * deltaT);
+            mass = pendulum.getMass();
+            length = pendulum.getLength();
+            angle = pendulum.getAngle();
+
+            angleAcceleration = gravity / length * Math.sin(angle)
+                                - (damping / (mass * length * length)) * angleVelocity;
+            angleVelocity += angleAcceleration * timestep;
+            pendulum.setAngle(angle + angleVelocity * timestep);
             repaint();
             try { Thread.sleep(15); } catch (InterruptedException ex) {}
         }
