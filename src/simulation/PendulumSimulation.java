@@ -7,14 +7,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 
-/**
- * Created by nxex3708 on 3/20/2017.
- */
 public class PendulumSimulation extends JFrame implements Runnable
 {
+    //
     // Defaults
-    public static final double DEFAULT_GRAVITY = -9.81;
-    public static final double DEFAULT_TIMESTEP = 0.01;
+    private static final double DEFAULT_GRAVITY = -9.81;
+    private static final double DEFAULT_TIMESTEP = 0.01;
 
     // Physical variables
     private double gravity = DEFAULT_GRAVITY;
@@ -29,7 +27,7 @@ public class PendulumSimulation extends JFrame implements Runnable
         super(name);
         this.pendulum = pendulum;
         this.add(pendulum);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
 
@@ -73,11 +71,10 @@ public class PendulumSimulation extends JFrame implements Runnable
 
     // Returns the angle between the given point and the center
     // (Note: This is NOT the same as the angle between the pendulum and its axis)
-    public double getAngleFromCentre(Point target)
+    private double getAngleFromCentre(Point target)
     {
-        double angle = Math.atan2(target.y - (getHeight() / 2),
-                                    target.x - (getHeight() / 2));
-        return angle;
+        return Math.atan2(target.y - (getHeight() / 2),
+                target.x - (getHeight() / 2));
     }
 
     // Getters and Setters
