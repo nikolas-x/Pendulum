@@ -64,6 +64,14 @@ public class PendulumSimulation extends JFrame implements Runnable
                 target.x - (getHeight() / 2));
     }
 
+    @Override
+    public Dimension getPreferredSize()
+    {
+        int screenHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        int preferredHeight = (int)(screenHeight * 0.95);
+        return new Dimension(preferredHeight, preferredHeight);
+    }
+
     // Getters and Setters
 
     public double getGravity()

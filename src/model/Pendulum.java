@@ -73,12 +73,6 @@ public class Pendulum extends JPanel
                 (int)(getScaledMass() * 2));
     }
 
-    @Override
-    public Dimension getPreferredSize()
-    {
-        return new Dimension(1000, 1000);
-    }
-
     public void reset()
     {
         angleAcceleration = 0;
