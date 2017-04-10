@@ -11,6 +11,8 @@ public class Pendulum extends JPanel
     private double mass; // kg
     private double length; // m
     private double angle; // rad
+    private double angleAcceleration = 0;
+    private double angleVelocity = 0;
 
     public Pendulum()
     {
@@ -25,6 +27,14 @@ public class Pendulum extends JPanel
         this.length = length;
         this.angle = angle;
         setDoubleBuffered(true);
+    }
+
+    public void update(double gravity, double damping, double timestep)
+    {
+        angleAcceleration = gravity / length * Math.sin(angle)
+                - (damping / (mass * length * length)) * angleVelocity;
+        angleVelocity += angleAcceleration * timestep;
+        angle += angleVelocity * timestep;
     }
 
     @Override
@@ -67,6 +77,12 @@ public class Pendulum extends JPanel
     public Dimension getPreferredSize()
     {
         return new Dimension(1000, 1000);
+    }
+
+    public void reset()
+    {
+        angleAcceleration = 0;
+        angleVelocity = 0;
     }
 
     public double getScaledLength()

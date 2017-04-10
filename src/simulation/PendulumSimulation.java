@@ -12,14 +12,12 @@ public class PendulumSimulation extends JFrame implements Runnable
     //
     // Defaults
     private static final double DEFAULT_GRAVITY = -9.81;
-    private static final double DEFAULT_TIMESTEP = 0.01;
+    private static final double DEFAULT_TIMESTEP = 0.05;
 
     // Physical variables
     private double gravity = DEFAULT_GRAVITY;
-    private double damping = 0;
+    private double damping = 1;
     private double timestep = DEFAULT_TIMESTEP;
-    private double angleAcceleration = 0;
-    private double angleVelocity = 0;
     private Pendulum pendulum;
 
     public PendulumSimulation(String name, Pendulum pendulum)
@@ -37,8 +35,7 @@ public class PendulumSimulation extends JFrame implements Runnable
             public void mousePressed(MouseEvent me)
             {
                 pendulum.setAngle((Math.PI / 2) - getAngleFromCentre(me.getPoint()));
-                angleAcceleration = 0;
-                angleVelocity = 0;
+                pendulum.reset();
                 repaint();
             }
         });
@@ -51,19 +48,9 @@ public class PendulumSimulation extends JFrame implements Runnable
     public void run()
     {
         // TODO: set up game loop
-        angleAcceleration = 0;
-        angleVelocity = 0;
-        double mass, length, angle;
         while (true)
         {
-            mass = pendulum.getMass();
-            length = pendulum.getLength();
-            angle = pendulum.getAngle();
-
-            angleAcceleration = gravity / length * Math.sin(angle)
-                                - (damping / (mass * length * length)) * angleVelocity;
-            angleVelocity += angleAcceleration * timestep;
-            pendulum.setAngle(angle + angleVelocity * timestep);
+            pendulum.update(gravity, damping, timestep);
             repaint();
             try { Thread.sleep(15); } catch (InterruptedException ex) {}
         }
